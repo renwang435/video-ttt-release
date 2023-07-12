@@ -1,0 +1,69 @@
+_BASE_: ../maskformer2_R50_bs16_90k.yaml
+
+MODEL:
+  META_ARCHITECTURE: "MaskFormerTTT"
+  BACKBONE:
+    NAME: "D2SwinTransformer"
+  SWIN:
+    EMBED_DIM: 96
+    DEPTHS: [2, 2, 18, 2]
+    NUM_HEADS: [3, 6, 12, 24]
+    WINDOW_SIZE: 7
+    APE: False
+    DROP_PATH_RATE: 0.3
+    PATCH_NORM: True
+    IN_CHANS: 4
+  WEIGHTS: "../../../../checkpoints/swin_small_patch4_window7_224_4chan.pkl"
+  PIXEL_MEAN: [123.675, 116.280, 103.530]
+  PIXEL_STD: [58.395, 57.120, 57.375]
+
+DATASETS:
+  TRAIN: ("kitti_step_video_sem_seg_train",)
+  TEST: ("kitti_step_video_sem_seg_val",)
+
+SOLVER:
+  IMS_PER_BATCH: 1
+  ACCUM_ITER: 4
+  BASE_LR: 0.0001
+  MAX_ITER: 4000000
+  WARMUP_FACTOR: 1.0
+  WARMUP_ITERS: 0
+  WEIGHT_DECAY: 0.05
+  OPTIMIZER: "ADAMW"
+  LR_SCHEDULER_NAME: "WarmupPolyLR"
+  BACKBONE_MULTIPLIER: 0.1
+  CLIP_GRADIENTS:
+    ENABLED: True
+    CLIP_TYPE: "full_model"
+    CLIP_VALUE: 0.01
+    NORM_TYPE: 2.0
+  AMP:
+    ENABLED: True
+
+TEST:
+  EVAL_PERIOD: 4000000
+
+INPUT:
+  MIN_SIZE_TRAIN: !!python/object/apply:eval ["[int(x * 0.1 * 1024) for x in range(5, 21)]"]
+  MIN_SIZE_TRAIN_SAMPLING: "choice"
+  MIN_SIZE_TEST: 1024
+  MAX_SIZE_TRAIN: 4096
+  MAX_SIZE_TEST: 2048
+  CROP:
+    ENABLED: True
+    TYPE: "absolute"
+    SIZE: (512, 1024)
+    SINGLE_CATEGORY_MAX_AREA: 1.0
+  COLOR_AUG_SSD: True
+  SIZE_DIVISIBILITY: -1
+  FORMAT: "RGB"
+  # DATASET_MAPPER_NAME: "mask_former_dropout_st"
+  DATASET_MAPPER_NAME: "pretrain_semantic"
+
+TTT:
+  IN_DIR: ./
+  OUT_DIR: ./
+  EXP_DIR: ./
+  ST_ITERS: 1
+  HP: -1
+  RESTART_OPTIMIZER: False
