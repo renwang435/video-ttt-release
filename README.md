@@ -2,7 +2,7 @@
 
 [Renhao Wang*](https://renwang435.github.io/), [Yu Sun*](https://yueatsprograms.github.io/), [Yossi Gandelsman](https://yossigandelsman.github.io/), [Xinlei Chen](https://xinleic.xyz/), [Alexei A. Efros](http://people.eecs.berkeley.edu/~efros/), [Xiaolong Wang](https://xiaolonw.github.io/)
 
-[[`arXiv`](https://video-ttt.github.io/)] [[`Project`](https://video-ttt.github.io/)] [[`BibTeX`](#Citing)]
+[[`arXiv`](https://arxiv.org/abs/2307.05014)] [[`Project`](https://video-ttt.github.io/)] [[`BibTeX`](#Citing)]
 
 <div align="center">
     <img src="assets/teaser.png" height="100%" width="100%">
