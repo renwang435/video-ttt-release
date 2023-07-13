@@ -24,7 +24,7 @@ Relevant pretrained checkpoints can be [obtained here](https://berkeley.box.com/
 ## Reproducing Results
 
 ### Baselines
-To evaluate a pretrained Mask2Former-S on COCO-Videos for instance segmentation:
+To evaluate a pretrained Mask2Former-S on COCO-Videos for panoptic segmentation:
 ```
 python runner_coco_videos_baseline.py --gpu 0 \
   --videos bangkok bar berkeley havana house irvine paris restaurant school tokyo \
